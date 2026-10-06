@@ -1,14 +1,13 @@
 #include "monty.h"
 
 /**
- * f_push - pushes an element onto the stack
+ * f_push - pushes an element onto the stack or queue
  * @head: double pointer to stack head
  * @counter: line number
  */
 void f_push(stack_t **head, unsigned int counter)
 {
 	int n;
-	stack_t *new_node;
 
 	if (!bus.arg || !is_number(bus.arg))
 	{
@@ -19,21 +18,10 @@ void f_push(stack_t **head, unsigned int counter)
 		exit(EXIT_FAILURE);
 	}
 	n = atoi(bus.arg);
-	new_node = malloc(sizeof(stack_t));
-	if (!new_node)
-	{
-		fprintf(stderr, "Error: malloc failed\n");
-		fclose(bus.file);
-		free(bus.content);
-		free_stack(*head);
-		exit(EXIT_FAILURE);
-	}
-	new_node->n = n;
-	new_node->prev = NULL;
-	new_node->next = *head;
-	if (*head)
-		(*head)->prev = new_node;
-	*head = new_node;
+	if (bus.lifi == 0)
+		addnode(head, n);
+	else
+		addqueue(head, n);
 }
 
 /**
@@ -54,7 +42,7 @@ void f_pall(stack_t **head, unsigned int counter)
 }
 
 /**
- * f_pint - prints the value at the top of the stack
+ * f_pint - prints the value at top of stack
  * @head: double pointer to stack head
  * @counter: line number
  */
@@ -72,7 +60,7 @@ void f_pint(stack_t **head, unsigned int counter)
 }
 
 /**
- * f_pop - removes the top element of the stack
+ * f_pop - removes top element of stack
  * @head: double pointer to stack head
  * @counter: line number
  */

@@ -42,6 +42,7 @@ typedef struct instruction_s
  * @arg: string value argument for push
  * @file: pointer to monty bytecode file
  * @content: line content buffer
+ * @lifi: flag for stack (0) or queue (1)
  *
  * Description: variables shared across functions
  */
@@ -50,6 +51,7 @@ typedef struct bus_s
 	char *arg;
 	FILE *file;
 	char *content;
+	int lifi;
 } bus_t;
 
 extern bus_t bus;
@@ -58,6 +60,8 @@ extern bus_t bus;
 void free_stack(stack_t *head);
 int execute(char *content, stack_t **stack, unsigned int line_number, FILE *file);
 int is_number(char *str);
+void addnode(stack_t **head, int n);
+void addqueue(stack_t **head, int n);
 
 /* Opcode Functions */
 void f_push(stack_t **head, unsigned int line_number);
@@ -71,5 +75,11 @@ void f_sub(stack_t **head, unsigned int line_number);
 void f_div(stack_t **head, unsigned int line_number);
 void f_mul(stack_t **head, unsigned int line_number);
 void f_mod(stack_t **head, unsigned int line_number);
+void f_pchar(stack_t **head, unsigned int line_number);
+void f_pstr(stack_t **head, unsigned int line_number);
+void f_rotl(stack_t **head, unsigned int line_number);
+void f_rotr(stack_t **head, unsigned int line_number);
+void f_stack(stack_t **head, unsigned int line_number);
+void f_queue(stack_t **head, unsigned int line_number);
 
 #endif /* MONTY_H */

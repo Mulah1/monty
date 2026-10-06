@@ -1,11 +1,13 @@
-,>                      read char 1 into cell 0, move to cell 1
-,                       read char 2 into cell 1
-[                       loop cell 1 down to zero
-    < +                 add to cell 0
+,>                     Read first digit character into cell 0, move to cell 1
+,                      Read second digit character into cell 1
+[                      Loop to add numeric value of cell 1 into cell 0
+    < +
     > -
 ]
-<                       move to cell 0
------ -----             subtract 48 (ASCII offset for '0')
------ -----
------ -----
------ --- .             print resulting single-digit sum
+<                      Move back to cell 0
+----- -----            Subtract 10
+----- -----            Subtract 10
+----- -----            Subtract 10
+----- -----            Subtract 10
+----                   Subtract 8 (Total subtracted: 48 = ASCII '0')
+.                      Print result

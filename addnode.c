@@ -14,6 +14,9 @@ void addnode(stack_t **head, int n)
 	if (new_node == NULL)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
+		fclose(bus.file);
+		free(bus.content);
+		free_stack(*head);
 		exit(EXIT_FAILURE);
 	}
 	if (aux)
@@ -38,6 +41,9 @@ void addqueue(stack_t **head, int n)
 	if (new_node == NULL)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
+		fclose(bus.file);
+		free(bus.content);
+		free_stack(*head);
 		exit(EXIT_FAILURE);
 	}
 	new_node->n = n;
@@ -57,28 +63,4 @@ void addqueue(stack_t **head, int n)
 		aux->next = new_node;
 		new_node->prev = aux;
 	}
-}
-
-/**
- * f_push - pushes an element onto the stack or queue
- * @head: double pointer to stack head
- * @counter: line number
- */
-void f_push(stack_t **head, unsigned int counter)
-{
-	int n;
-
-	if (!bus.arg || !is_number(bus.arg))
-	{
-		fprintf(stderr, "L%d: usage: push integer\n", counter);
-		fclose(bus.file);
-		free(bus.content);
-		free_stack(*head);
-		exit(EXIT_FAILURE);
-	}
-	n = atoi(bus.arg);
-	if (bus.lifi == 0)
-		addnode(head, n);
-	else
-		addqueue(head, n);
 }
